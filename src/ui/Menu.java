@@ -1,10 +1,13 @@
 package ui;
+import model.*;
+import exception.*;
 
 import java.util.Scanner;
 
 public class Menu {
 
     public static Scanner sc = new Scanner(System.in);
+    private MiniMarket mm = new MiniMarket();
     
     public void showMenu(){
         System.out.println("Bienvenido a su menu preferido!");
@@ -14,17 +17,44 @@ public class Menu {
         System.out.println("(3) Salir del programa");
     }
 
+    public String registerPerson(){
+        String msg = "";
+        System.out.println("Por favor ingrese su numero de identificacion");
+        long id = sc.nextLong();
+        System.out.println("Por favor ingrese su TIPO de documento");
+        System.out.println("CC, PP, TI o CE");
+        sc.nextLine();
+        String type = sc.nextLine();
+        TypeDocument td = TypeDocument.valueOf(type);
+        try {
+            mm.addPerson(id, td);
+            msg = "The person was added succesfully";
+        } catch (AgeException a) {
+            a.printStackTrace();
+        }
+        catch (DayException d){
+            d.printStackTrace();
+        }
+        return msg;
+    }
+
+    public String count(){
+        return "The amount of people who try enter are: "+mm.getCount();
+    }
+        
+
     public void doOperation (int option){
         switch(option){
             case 1:
-            System.out.println();
+            registerPerson();
             break;
 
         case 2:
-            System.out.println();
+            System.out.println(count());
             break;
         case 3:
             System.out.println("Gracias por usar esta aplicacion");
+            break;
 
         default: 
             System.out.println("Error, opcion invalida, por favor digite otra opcion");
@@ -43,7 +73,7 @@ public class Menu {
             showMenu();
             option = readOption();
             doOperation(option);
-        } while (option != 11);
+        } while (option != 3);
     }
 
 }
