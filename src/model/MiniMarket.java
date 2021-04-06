@@ -60,15 +60,15 @@ public class MiniMarket {
     }
 
     public void addPerson(long id, TypeDocument type) throws AgeException, DayException {
-        if(compareDayAndId(getDay(), penultimateInt(id)).equalsIgnoreCase("No")){
-            count++;
-            throw new DayException();
-            
-        }
-        else if(type.equals(TypeDocument.TI)){
+        if(type.equals(TypeDocument.TI)){
             count++;
             throw new AgeException();
            
+        }
+        else if(compareDayAndId(getDay(), penultimateInt(id)).equalsIgnoreCase("No")){
+            count++;
+            throw new DayException();
+            
         }
         else{
         people.add(new Person(type, id));

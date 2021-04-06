@@ -7,8 +7,6 @@ public class Main {
         menu = new Menu();
         menu.startProgram();
       
-
-        
     }
 
 }
