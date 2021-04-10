@@ -1,9 +1,7 @@
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
 import exception.*;
 import model.*;
 
@@ -32,10 +30,11 @@ public class MarketTest {
         scenary1();
         try {
             mm.addPerson(p.getId(), p.getType());
+            fail("The child shouldnt be added");
         } catch (AgeException a) {
-            assertEquals("We waited expected adult document type", p.getType());
+            assertTrue(mm.getPeople().size() == 0);
         } catch (DayException d) {
-            fail("This exception never wont ocurred");
+            fail("DayException never wont ocurred");
         }
     }
 
@@ -43,11 +42,18 @@ public class MarketTest {
     public void testAddPerson2() {
         scenary2();
         String day = mm.compareDayAndId(mm.getDay(), mm.penultimateInt(p.getId()));
-        if (day.equals("No")){
-            day = "It doesnt match current day expected";
-        }
+
         try {
-            mm.addPerson(p.getId(), p.getType());
+            if (day.equals("No")) {
+                day = "It doesnt match current day expected";
+                mm.addPerson(p.getId(), p.getType());
+                fail("The person shouldnt be added");
+            } else {
+                mm.addPerson(p.getId(), p.getType());
+                assertTrue(p.getId() == mm.getPeople().get(0).getId());
+                assertTrue(p.getType() == mm.getPeople().get(0).getType());
+            }
+
         } catch (AgeException a) {
             fail("This exception never wont ocurred");
         } catch (DayException d) {
@@ -59,11 +65,17 @@ public class MarketTest {
     public void testAddPerson3() {
         scenary3();
         String day = mm.compareDayAndId(mm.getDay(), mm.penultimateInt(p.getId()));
-        if (day.equals("No")){
-            day = "It doesnt match current day expected";
-        }
         try {
-            mm.addPerson(p.getId(), p.getType());
+            if (day.equals("No")) {
+                day = "It doesnt match current day expected";
+                mm.addPerson(p.getId(), p.getType());
+                fail("The person shouldnt be added");
+            } else {
+                mm.addPerson(p.getId(), p.getType());
+                assertTrue(p.getId() == mm.getPeople().get(0).getId());
+                assertTrue(p.getType() == mm.getPeople().get(0).getType());
+            }
+
         } catch (AgeException a) {
             fail("This exception never wont ocurred");
         } catch (DayException d) {

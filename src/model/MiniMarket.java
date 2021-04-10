@@ -36,7 +36,6 @@ public class MiniMarket {
         this.count = count;
     }
 
-
     public int penultimateInt(long id){
         int penultimate;
         String string = String.valueOf(id);
@@ -59,21 +58,22 @@ public class MiniMarket {
         return msg;
     }
 
-    public void addPerson(long id, TypeDocument type) throws AgeException, DayException {
+    public boolean addPerson(long id, TypeDocument type) throws AgeException, DayException {
+        boolean added = false;
         if(type.equals(TypeDocument.TI)){
             count++;
             throw new AgeException();
-           
         }
         else if(compareDayAndId(getDay(), penultimateInt(id)).equalsIgnoreCase("No")){
             count++;
             throw new DayException();
-            
         }
         else{
         people.add(new Person(type, id));
         count++;
+        added = true;
         }
+        return added;
     }
 
 
